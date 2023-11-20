@@ -7,14 +7,9 @@ import javafx.beans.property.*;
 public class Model {
     LongProperty x = new SimpleLongProperty(5);
     LongProperty y = new SimpleLongProperty(10);
-    String op = "+";
     ObjectProperty<Operation> op2 = new SimpleObjectProperty<>(Operation.PLUS);
 
     public Model() {}
-
-    void setOp(String op) {
-        this.op = op;
-    }
 
     long getX() {
         return x.getValue();
@@ -55,10 +50,6 @@ public class Model {
         return Bindings.createLongBinding(this::getSum, x, y, op2);
     }
 
-    String getOp() {
-        return op;
-    }
-
     Property<Operation> op2Property() {
         return op2;
     }
@@ -81,5 +72,15 @@ public class Model {
                 return "/";
             }
         };
+
+        static Operation fromSign(String s) {
+            switch (s) {
+                case "+": return PLUS;
+                case "-": return MINUS;
+                case "*": return TIMES;
+                case "/": return DIVIDE;
+                default: throw new RuntimeException("Unknown operation: " + s);
+            }
+        }
     }
 }

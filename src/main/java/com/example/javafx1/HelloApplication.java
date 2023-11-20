@@ -10,7 +10,8 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        App app = new App(new Model());
+        final Model model = new Model();
+        App app = new App(new ViewModel(model));
         Parent view = app.getView();
         Scene scene = new Scene(view, 320, 240);
         stage.setTitle("Hello!");
